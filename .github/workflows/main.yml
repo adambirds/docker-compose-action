@@ -16,7 +16,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 19.4.0
-      - run: npm install
       - uses: ./
         with:
           compose-file: "./docker/docker-compose.yml"
