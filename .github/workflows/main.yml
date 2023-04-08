@@ -42,6 +42,11 @@ jobs:
           services: |
             helloworld2
             helloworld4
+      - uses: ./
+        with:
+          compose-file: "./docker/docker-compose-tests.yml"
+          test-container: ubuntu
+          test-command: ls
   lint:
     runs-on: ubuntu-latest
     name: lint test

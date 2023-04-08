@@ -1,0 +1,18 @@
+version: "3.8"
+
+volumes:
+  test_volume: {}
+
+services:
+  helloworld:
+    image: hello-world
+    volumes:
+      - test_volume:/test:Z
+  helloworld2:
+    profiles: [profile-1]
+    image: hello-world
+  helloworld3:
+    profiles: [profile-2]
+    image: hello-world
+  ubuntu:
+    image: ubuntu-latest
