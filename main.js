@@ -40,6 +40,7 @@ try {
   if (testCommand && testContainer) {
     const test = compose.exec(testContainer, testCommand, {
       cwd: path.join(__dirname),
+      config: composeFiles,
     });
 
     test

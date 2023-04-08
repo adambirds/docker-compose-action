@@ -14,5 +14,5 @@ services:
   helloworld3:
     profiles: [profile-2]
     image: hello-world
-  ubuntu:
-    image: ubuntu
+  nginx:
+    image: nginx
