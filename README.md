@@ -1,6 +1,6 @@
 # Docker Compose Action
 
-This action runs your docker-compose file and clean up before action finished.
+This action runs your docker-compose file, allows you to run tests and cleans up before action finished.
 
 ## Inputs
 
@@ -44,9 +44,9 @@ compose-file: |
 
 ```yaml
 steps:
-  # need checkout before using compose-action
+  # need checkout before using docker-compose-action
   - uses: actions/checkout@v3
-  - uses: isbang/compose-action@v1.4.1
+  - uses: adambirds/docker-compose-action@v1.4.1
     with:
       compose-file: "./docker/docker-compose.yml"
       down-flags: "--volumes"
@@ -62,7 +62,7 @@ steps:
 ```yaml
 steps:
   - uses: actions/checkout@v3
-  - uses: isbang/compose-action@v1.4.1
+  - uses: adambirds/docker-compose-action@v1.4.1
     with:
       compose-file: "./docker/docker-compose.yml"
     env:
