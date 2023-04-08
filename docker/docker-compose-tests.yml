@@ -15,4 +15,4 @@ services:
     profiles: [profile-2]
     image: hello-world
   ubuntu:
-    image: ubuntu-latest
+    image: ubuntu
