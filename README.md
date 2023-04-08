@@ -46,7 +46,7 @@ compose-file: |
 steps:
   # need checkout before using docker-compose-action
   - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.4.1
+  - uses: adambirds/docker-compose-action@v1.1.0
     with:
       compose-file: "./docker/docker-compose.yml"
       down-flags: "--volumes"
@@ -62,7 +62,7 @@ steps:
 ```yaml
 steps:
   - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.4.1
+  - uses: adambirds/docker-compose-action@v1.1.0
     with:
       compose-file: "./docker/docker-compose.yml"
     env:
