@@ -32,6 +32,14 @@ compose-file: |
 
 **Optional** Used to specify flags to pass to the `docker-compose` command. Default is none. A full list of flags can be found in the [docker-compose documentation](https://docs.docker.com/compose/reference/#command-options-overview-and-help).
 
+### `test-container`
+
+**Optional** Used to specify the container to run the tests in. Default is none. If not specified, no tests will be run.
+
+### `test-command`
+
+**Optional** Used to specify the command to run the tests with. Default is none. If not specified, no tests will be run.
+
 ## Example usage
 
 ```yaml
@@ -45,6 +53,8 @@ steps:
       services: |
         helloworld2
         helloworld3
+      test-container: helloworld
+      test-command: "npm test"
 ```
 
 ### Using environment variables
