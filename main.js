@@ -28,29 +28,29 @@ try {
   promise
     .then(() => {
       console.log("compose started");
+
+      // Run tests command.
+
+      const testContainer = core.getInput("test-container");
+      const testCommand = core.getInput("test-command");
+      if (testCommand && testContainer) {
+        const test = compose.exec(testContainer, testCommand, {
+          cwd: path.join(__dirname),
+          config: composeFiles,
+        });
+
+        test
+          .then(() => {
+            console.log("tests passed");
+          })
+          .catch((err) => {
+            core.setFailed(`tests failed ${JSON.stringify(err)}`);
+          });
+      }
     })
     .catch((err) => {
       core.setFailed(`compose up failed ${JSON.stringify(err)}`);
     });
-
-  // Run tests command.
-
-  const testContainer = core.getInput("test-container");
-  const testCommand = core.getInput("test-command");
-  if (testCommand && testContainer) {
-    const test = compose.exec(testContainer, testCommand, {
-      cwd: path.join(__dirname),
-      config: composeFiles,
-    });
-
-    test
-      .then(() => {
-        console.log("tests passed");
-      })
-      .catch((err) => {
-        core.setFailed(`tests failed ${JSON.stringify(err)}`);
-      });
-  }
 } catch (error) {
   core.setFailed(error.message);
 }

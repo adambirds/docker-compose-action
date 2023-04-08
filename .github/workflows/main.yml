@@ -45,7 +45,7 @@ jobs:
       - uses: ./
         with:
           compose-file: "./docker/docker-compose-tests.yml"
-          test-container: ubuntu
+          test-container: nginx
           test-command: ls
   lint:
     runs-on: ubuntu-latest
