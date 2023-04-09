@@ -1,7 +1,7 @@
 const core = require("@actions/core");
 const compose = require("docker-compose");
 const utils = require("./utils");
-const path = require("path");
+//const path = require("path");
 
 try {
   const composeFiles = utils.parseComposeFiles(
@@ -33,19 +33,26 @@ try {
 
       const testContainer = core.getInput("test-container");
       const testCommand = core.getInput("test-command");
-      if (testCommand && testContainer) {
-        const test = compose.exec(testContainer, testCommand, {
-          cwd: path.join(__dirname),
-          config: composeFiles,
-        });
 
-        test
-          .then(() => {
-            console.log("tests passed");
-          })
-          .catch((err) => {
-            core.setFailed(`tests failed ${JSON.stringify(err)}`);
+      console.log("testContainer", testContainer);
+      console.log("testCommand", testCommand);
+
+      if (testCommand && testContainer) {
+        setTimeout(() => {
+          const test = compose.exec(testContainer, testCommand, {
+            config: composeFiles,
           });
+
+          test
+            .then(() => {
+              console.log("tests passed");
+            })
+            .catch((err) => {
+              console.log(err.out);
+              console.log(err.err);
+              core.setFailed(`tests failed ${JSON.stringify(err)}`);
+            });
+        }, 10000);
       }
     })
     .catch((err) => {
