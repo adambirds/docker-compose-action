@@ -46,7 +46,7 @@ compose-file: |
 steps:
   # need checkout before using docker-compose-action
   - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.1.0
+  - uses: adambirds/docker-compose-action@v1.2.0
     with:
       compose-file: "./docker/docker-compose.yml"
       down-flags: "--volumes"
@@ -62,9 +62,33 @@ steps:
 ```yaml
 steps:
   - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.1.0
+  - uses: adambirds/docker-compose-action@v1.2.0
     with:
       compose-file: "./docker/docker-compose.yml"
     env:
       CUSTOM_VARIABLE: "test"
+```
+
+### Run tests on multiple containers
+
+```yaml
+steps:
+  - uses: actions/checkout@v3
+  - uses: adambirds/docker-compose-action@v1.2.0
+    with:
+      compose-file: "./docker/docker-compose.yml"
+      test-container: "container1"
+      test-command: "npm test"
+
+  - uses: adambirds/docker-compose-action@v1.2.0
+    with:
+      compose-file: "./docker/docker-compose.yml"
+      test-container: "container2"
+      test-command: "npm test"
+
+  - uses: adambirds/docker-compose-action@v1.2.0
+    with:
+      compose-file: "./docker/docker-compose.yml"
+      test-container: "container3"
+      test-command: "npm test"
 ```
