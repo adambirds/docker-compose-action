@@ -44,7 +44,8 @@ try {
           });
 
           test
-            .then(() => {
+            .then((out) => {
+              console.log(out.out);
               console.log("tests passed");
             })
             .catch((err) => {
