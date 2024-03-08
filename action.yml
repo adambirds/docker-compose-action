@@ -27,7 +27,7 @@ inputs:
     description: "The command to use to execute tests."
     required: false
 runs:
-  using: "node16"
+  using: "node20"
   main: "main.js"
   post: "post.js"
 branding:
