@@ -1,6 +1,6 @@
 # Docker Compose Action
 
-This action runs your docker-compose file, allows you to run tests and cleans up before action finished.
+This action runs your docker-compose file, allows you to run tests and cleans up before action finished. This is a copy of the repository from adambirds, but with dependencies updated.
 
 ## Inputs
 
@@ -46,7 +46,7 @@ compose-file: |
 steps:
   # need checkout before using docker-compose-action
   - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: jmalvarezf-lmes/docker-compose-action@v1.4.0
     with:
       compose-file: "./docker/docker-compose.yml"
       down-flags: "--volumes"
@@ -62,7 +62,7 @@ steps:
 ```yaml
 steps:
   - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: jmalvarezf-lmes/docker-compose-action@v1.4.0
     with:
       compose-file: "./docker/docker-compose.yml"
     env:
@@ -74,19 +74,19 @@ steps:
 ```yaml
 steps:
   - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: jmalvarezf-lmes/docker-compose-action@v1.4.0
     with:
       compose-file: "./docker/docker-compose.yml"
       test-container: "container1"
       test-command: "npm test"
 
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: jmalvarezf-lmes/docker-compose-action@v1.4.0
     with:
       compose-file: "./docker/docker-compose.yml"
       test-container: "container2"
       test-command: "npm test"
 
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: jmalvarezf-lmes/docker-compose-action@v1.4.0
     with:
       compose-file: "./docker/docker-compose.yml"
       test-container: "container3"
