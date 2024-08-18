@@ -1,6 +1,6 @@
 const core = require("@actions/core");
-const compose = require("docker-compose");
 const utils = require("./utils");
+const { down } = require("docker-compose/dist/v2");
 
 try {
   const composeFiles = utils.parseComposeFiles(
@@ -17,7 +17,7 @@ try {
     commandOptions: utils.parseFlags(core.getInput("down-flags")),
   };
 
-  compose.down(options).then(
+  down(options).then(
     () => {
       console.log("compose removed");
     },
