@@ -1,6 +1,6 @@
 const core = require("@actions/core");
 const utils = require("./utils");
-const { upMany, upAll, exec } = require("docker-compose/dist/v2");
+const { upMany, upAll, run } = require("docker-compose/dist/v2");
 
 try {
   const composeFiles = utils.parseComposeFiles(
@@ -36,7 +36,7 @@ try {
 
       if (testCommand && testContainer) {
         setTimeout(() => {
-          const test = exec(testContainer, testCommand, {
+          const test = run(testContainer, testCommand, {
             config: composeFiles,
           });
 
