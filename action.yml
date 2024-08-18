@@ -26,6 +26,10 @@ inputs:
   test-command:
     description: "The command to use to execute tests."
     required: false
+  annotate:
+    description: "Whether to shwo the console output in the annotations."
+    required: false
+    default: "true"
 runs:
   using: "node20"
   main: "main.js"
