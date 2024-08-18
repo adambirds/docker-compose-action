@@ -10,6 +10,7 @@ try {
     return;
   }
 
+  const annotate = core.getInput("annotate");
   const services = core.getMultilineInput("services", { required: false });
 
   const options = {
@@ -48,14 +49,20 @@ try {
             .catch((err) => {
               console.log(err.out);
               console.log(err.err);
-              core.setFailed(`tests failed ${JSON.stringify(err)}`);
+              if (annotate) {
+                core.setFailed(`tests failed ${JSON.stringify(err)}`);
+              }
             });
         }, 10000);
       }
     })
     .catch((err) => {
-      core.setFailed(`compose up failed ${JSON.stringify(err)}`);
+      if (annotate) {
+        core.setFailed(`compose up failed ${JSON.stringify(err)}`);
+      }
     });
 } catch (error) {
-  core.setFailed(error.message);
+  if (annotate) {
+    core.setFailed(error.message);
+  }
 }
