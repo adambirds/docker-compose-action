@@ -27,7 +27,7 @@ inputs:
     description: "The command to use to execute tests."
     required: false
   annotate:
-    description: "Whether to shwo the console output in the annotations."
+    description: "Whether to show the console output in the annotations."
     required: false
     default: "true"
 runs:
