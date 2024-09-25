@@ -1,16 +1,16 @@
 # Docker Compose Action
 
-This action runs your docker-compose file, allows you to run tests and cleans up before action finished.
+This GitHub Action allows you to run your `docker-compose` files, specify services to bring up, execute tests in containers, and clean up afterward. It simplifies running tests within a containerized environment in your CI/CD pipelines.
 
 ## Inputs
 
 ### `compose-file`
 
-**Optional** The name of the compose file. Default `"./docker-compose.yml"`.
+**Optional** - The path to the Docker Compose file(s). Default: `"./docker-compose.yml"`.
 
-It can be a list of files:
+You can provide a list of files if needed:
 
-```yml
+```yaml
 compose-file: |
   docker-compose.yml
   docker-compose.ci.yml
@@ -18,42 +18,46 @@ compose-file: |
 
 ### `services`
 
-**Optional** Just perform `docker-compose up` to one service instead of all of them
+**Optional** - The specific services to bring up with `docker-compose up`. If not specified, all services in the compose file(s) will be started.
 
 ### `up-flags`
 
-**Optional** Used to specify flags to pass to the `docker-compose up`. Default is none. Can be used to pass the `--build` flag, for example, if you want persistent volumes to be deleted as well during cleanup. A full list of flags can be found in the [docker-compose up documentation](https://docs.docker.com/compose/reference/up/).
+**Optional** - Additional flags to pass to the `docker-compose up` command. Default is none. Useful for passing options like `--build` or `--force-recreate`.
 
 ### `down-flags`
 
-**Optional** Used to specify flags to pass to the `docker-compose down` command during cleanup. Default is none. Can be used to pass the `--volumes` flag, for example, if you want persistent volumes to be deleted as well during cleanup. A full list of flags can be found in the [docker-compose down documentation](https://docs.docker.com/compose/reference/down/).
+**Optional** - Flags to pass to the `docker-compose down` command during cleanup. Default is none. For example, use `--volumes` if you want to remove volumes.
 
 ### `compose-flags`
 
-**Optional** Used to specify flags to pass to the `docker-compose` command. Default is none. A full list of flags can be found in the [docker-compose documentation](https://docs.docker.com/compose/reference/#command-options-overview-and-help).
+**Optional** - General flags to pass to the `docker-compose` command. Default is none. These can be used to add global options like `--compatibility` or other Docker Compose features.
 
 ### `test-container`
 
-**Optional** Used to specify the container to run the tests in. Default is none. If not specified, no tests will be run.
+**Optional** - The name of the container in which to run the tests. If not specified, no tests will be executed.
 
 ### `test-command`
 
-**Optional** Used to specify the command to run the tests with. Default is none. If not specified, no tests will be run.
+**Optional** - The command used to run the tests within the container. For example, `npm test` for Node.js projects. If not specified, no tests will be run.
+
+### `annotate`
+
+**Optional** - Whether to show the console output of the test run as GitHub Action annotations. Default: `"true"`.
 
 ## Example usage
 
 ```yaml
 steps:
-  # need checkout before using docker-compose-action
-  - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.3.0
+  # Check out the repository
+  - uses: actions/checkout@v4
+
+  # Run Docker Compose Action
+  - uses: adambirds/docker-compose-action@v1.5.0
     with:
       compose-file: "./docker/docker-compose.yml"
+      up-flags: "--build"
       down-flags: "--volumes"
-      services: |
-        helloworld2
-        helloworld3
-      test-container: helloworld
+      test-container: "test-container"
       test-command: "npm test"
 ```
 
@@ -61,32 +65,32 @@ steps:
 
 ```yaml
 steps:
-  - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: actions/checkout@v4
+  - uses: adambirds/docker-compose-action@v1.5.0
     with:
       compose-file: "./docker/docker-compose.yml"
     env:
       CUSTOM_VARIABLE: "test"
 ```
 
-### Run tests on multiple containers
+### Running tests on multiple containers
 
 ```yaml
 steps:
-  - uses: actions/checkout@v3
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: actions/checkout@v4
+  - uses: adambirds/docker-compose-action@v1.5.0
     with:
       compose-file: "./docker/docker-compose.yml"
       test-container: "container1"
       test-command: "npm test"
 
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: adambirds/docker-compose-action@v1.5.0
     with:
       compose-file: "./docker/docker-compose.yml"
       test-container: "container2"
       test-command: "npm test"
 
-  - uses: adambirds/docker-compose-action@v1.3.0
+  - uses: adambirds/docker-compose-action@v1.5.0
     with:
       compose-file: "./docker/docker-compose.yml"
       test-container: "container3"
