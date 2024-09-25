@@ -2,6 +2,8 @@ const core = require("@actions/core");
 const utils = require("./utils");
 const { upMany, upAll, run } = require("docker-compose/dist/v2");
 
+let annotate = true; // Default annotate to true
+
 try {
   const composeFiles = utils.parseComposeFiles(
     core.getMultilineInput("compose-file")
@@ -10,7 +12,8 @@ try {
     return;
   }
 
-  const annotate = core.getInput("annotate");
+  annotate = core.getInput("annotate") || true; // Override if "annotate" input is provided
+
   const services = core.getMultilineInput("services", { required: false });
 
   const options = {
